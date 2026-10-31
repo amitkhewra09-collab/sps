@@ -25,7 +25,7 @@ COPY . /var/www/html
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-audit
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-plugins
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
