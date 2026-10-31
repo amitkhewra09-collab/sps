@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql pdo_pgsql gd
+    && docker-php-ext-install pdo_mysql pdo_pgsql bcmath gd
 
 # Enable Apache rewrite module
 RUN a2enmod rewrite
