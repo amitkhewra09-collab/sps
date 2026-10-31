@@ -26,10 +26,10 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.
 # Copy project files
 COPY . /var/www/html
 
-# Install fixed Composer 2.2 LTS directly from official raw source without text redirects
-RUN curl -fSL https://getcomposer.org -o /usr/bin/composer && chmod +x /usr/bin/composer
+# Cleanly pull the validated Composer binary from official docker source
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
-# Run composer installation smoothly using the isolated secure version
+# Smoothly install legacy packages ignoring audit restrictions
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # Set permissions
