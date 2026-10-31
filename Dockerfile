@@ -3,11 +3,12 @@ FROM php:8.2-apache
 # Set Environment variables
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# Install system dependencies
+# Install system dependencies including postgres dev libraries (libpq-dev)
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
+    libpq-dev \
     zip \
     unzip \
     git \
@@ -36,3 +37,6 @@ RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
+
+# Automatically run migrations and seeds before starting the Apache server
+CMD php artisan migrate --force && php artisan db:seed --force && apache2-foreground
