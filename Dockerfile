@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Set Composer parameters to completely bypass the new security advisory block
+# Set Environment variables
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Install system dependencies
@@ -26,12 +26,11 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.
 # Copy project files
 COPY . /var/www/html
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install a specific older version of Composer that does not have audit restrictions
+RUN curl -sS https://getcomposer.org | php -- --version=2.1.14 --install-dir=/usr/bin --filename=composer
 
-# Force composer config to disable security block before running install
-RUN composer config --global audit.block false \
-    && composer install --no-dev --optimize-autoloader --ignore-platform-reqs
+# Run composer installation smoothly using the old version
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
