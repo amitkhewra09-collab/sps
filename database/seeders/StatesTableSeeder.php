@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\State;
@@ -7,18 +8,24 @@ use Illuminate\Support\Facades\DB;
 
 class StatesTableSeeder extends Seeder
 {
-
     public function run()
     {
         DB::table('states')->delete();
 
         $states = [
-            'Abia', 'Adamawa', 'Akwa Ibom', 'Anambra', 'Bauchi', 'Bayelsa', 'Benue', 'Borno', 'Cross River', 'Delta', 'Ebonyi', 'Edo', 'Ekiti', 'Enugu', 'FCT', 'Gombe', 'Imo', 'Jigawa','Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Kogi', 'Kwara', 'Lagos', 'Nasarawa', 'Niger', 'Ogun', 'Ondo', 'Osun', 'Oyo', 'Plateau', 'Rivers', 'Sokoto', 'Taraba', 'Yobe', 'Zamfara',
+            ['name' => 'Andhra Pradesh'], ['name' => 'Arunachal Pradesh'], ['name' => 'Assam'],
+            ['name' => 'Bihar'], ['name' => 'Chhattisgarh'], ['name' => 'Goa'], ['name' => 'Gujarat'],
+            ['name' => 'Haryana'], ['name' => 'Himachal Pradesh'], ['name' => 'Jharkhand'],
+            ['name' => 'Karnataka'], ['name' => 'Kerala'], ['name' => 'Madhya Pradesh'],
+            ['name' => 'Maharashtra'], ['name' => 'Manipur'], ['name' => 'Meghalaya'],
+            ['name' => 'Mizoram'], ['name' => 'Nagaland'], ['name' => 'Odisha'], ['name' => 'Punjab'],
+            ['name' => 'Rajasthan'], ['name' => 'Sikkim'], ['name' => 'Tamil Nadu'], ['name' => 'Telangana'],
+            ['name' => 'Tripura'], ['name' => 'Uttar Pradesh'], ['name' => 'Uttarakhand'],
+            ['name' => 'West Bengal'], ['name' => 'Delhi'], ['name' => 'Jammu & Kashmir']
         ];
 
         foreach ($states as $state) {
-            State::create(['name' => $state]);
+            State::create($state);
         }
     }
-
 }
